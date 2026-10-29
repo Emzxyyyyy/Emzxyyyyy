@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Makes the page scale correctly on phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Maria Emz O. Ilao (Emz) - college student, developer and designer." />
+  <title>Emz Ilao | Portfolio</title>
+
+  <!-- Google Fonts: Space Grotesk (headings) + Inter (body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .proj-modal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;background:rgba(3,8,20,.75);backdrop-filter:blur(6px);padding:16px}
+    .proj-modal.open{display:flex}
+    .proj-panel{position:relative;width:100%;max-width:560px;height:92vh;max-height:760px;border-radius:20px;overflow:hidden;background:#0a0f1f;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+    .proj-panel iframe{width:100%;height:100%;border:0;display:block}
+    .proj-close{position:absolute;top:10px;right:10px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:#3b82f6;color:#fff;font-size:1.2rem;cursor:pointer}
+  </style>
+</head>
+<body>
+
+  <!-- Thin blue bar at the top that fills as you scroll (see script.js) -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Soft blue light that follows the mouse on desktop (see script.js) -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- ================= 1. NAVIGATION BAR ================= -->
+  <header class="navbar" id="navbar">
+    <a href="#home" class="logo">My Portfolio<span>.</span></a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#contact" class="nav-link nav-cta">Contact Me</a>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Light / dark mode toggle -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">◐</button>
+      <!-- Hamburger button (only visible on mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= 2. HERO / HOME ================= -->
+    <section class="hero" id="home">
+      <!-- Floating blurry blobs for background decoration -->
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+
+      <!-- Huge outlined nickname behind the text -->
+      <div class="hero-watermark" aria-hidden="true">EMZ</div>
+
+      <div class="hero-content">
+        <p class="hero-hello reveal">👋 Hello, world! I'm</p>
+        <h1 class="hero-name reveal">
+          MARIA EMZ O. <span class="gradient-text">ILAO</span>
+        </h1>
+        <p class="hero-nick reveal">but everyone calls me <strong>“Emz”</strong></p>
+
+        <!-- The text after "I am a" is typed by script.js -->
+        <p class="hero-role reveal">
+          I am a <span class="typed" id="typed"></span><span class="cursor">|</span>
+        </p>
+
+        <p class="hero-intro reveal">
+          A curious college student who loves turning ideas into clean, useful and
+          beautiful things on the web. Welcome to my little corner of the internet!
+        </p>
+
+        <div class="hero-buttons reveal">
+          <a href="#projects" class="btn btn-primary">View My Work</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+
+      <!-- Rotating circular badge with my name (SVG text on a circle) -->
+      <div class="badge reveal" aria-hidden="true">
+        <svg viewBox="0 0 200 200" class="badge-ring">
+          <defs>
+            <path id="circlePath" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0" />
+          </defs>
+          <text>
+            <textPath href="#circlePath">MARIA EMZ O. ILAO • EMZ • STUDENT • CREATOR •</textPath>
+          </text>
+        </svg>
+        <div class="badge-center"><img src="emxyy.jpg" alt="Emz" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" /></div>
+      </div>
+
+      <a href="#about" class="scroll-hint" aria-label="Scroll to About section">scroll ↓</a>
+    </section>
+
+    <!-- Scrolling strip of keywords (pure CSS animation) -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>HTML</span><span>✦</span><span>CSS</span><span>✦</span><span>JavaScript</span><span>✦</span>
+        <span>Design</span><span>✦</span><span>Creativity</span><span>✦</span><span>Teamwork</span><span>✦</span>
+        <!-- Repeated so the loop looks seamless -->
+        <span>HTML</span><span>✦</span><span>CSS</span><span>✦</span><span>JavaScript</span><span>✦</span>
+        <span>Design</span><span>✦</span><span>Creativity</span><span>✦</span><span>Teamwork</span><span>✦</span>
+      </div>
+    </div>
+
+    <!-- ================= 3. ABOUT ME ================= -->
+    <section class="section" id="about">
+      <div class="container">
+        <p class="section-label reveal">01 / About</p>
+        <h2 class="section-title reveal">A little bit about <span class="gradient-text">me</span></h2>
+
+        <div class="about-grid">
+          <!-- Profile card (replace the "E" with your photo, see note below) -->
+          <div class="about-card tilt reveal">
+            <!-- To use a photo: replace this div with <img src="your-photo.jpg" alt="Emz" class="avatar" /> -->
+            <img src="emxyy.jpg" alt="Emz" class="avatar" />
+            <h3>Maria Emz O. Ilao</h3>
+            <p class="muted">“Emz” · College Student</p>
+            <ul class="facts">
+              <li><span>🎓</span> BSCPE-1C</li>
+              <li><span>🏫</span> COLEGIO DE MONTALBAN</li>
+              <li><span>📍</span> MONTALBAN RIZAL</li>
+            </ul>
+          </div>
+
+          <div class="about-text reveal">
+            <p>
+              Hi! I'm <strong>Maria Emz O. Ilao</strong>, but you can call me <strong>Emz</strong>.
+              I'm a college student who enjoys building websites and learning how technology can
+              make everyday life easier.
+            </p>
+            <p>
+              I love the moment when a blank screen turns into something real, whether it's a
+              simple page or a full project. I'm always practicing, experimenting, and
+              improving one line of code at a time.
+            </p>
+            <p>
+              When I'm not studying, you can find me exploring new ideas, listening to music,
+              or looking for inspiration for my next project.
+            </p>
+
+            <!-- Quick numbers -->
+            <div class="stats">
+              <div class="stat"><span class="stat-num" data-count="3">0</span><small>Projects Built</small></div>
+              <div class="stat"><span class="stat-num" data-count="6">0</span><small>Skills Learned</small></div>
+              <div class="stat"><span class="stat-num" data-count="100">0</span><small>% Passion</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. SKILLS ================= -->
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <p class="section-label reveal">02 / Skills</p>
+        <h2 class="section-title reveal">What I <span class="gradient-text">can do</span></h2>
+
+        <div class="cards-grid">
+          <!-- Each card has a data-level that script.js uses to fill the bar -->
+          <article class="card skill-card tilt reveal">
+            <div class="icon">&lt;/&gt;</div>
+            <h3>HTML</h3>
+            <p>Building clean, meaningful page structures.</p>
+            <div class="bar"><div class="bar-fill" data-level="90"></div></div>
+          </article>
+
+          <article class="card skill-card tilt reveal">
+            <div class="icon">#</div>
+            <h3>CSS</h3>
+            <p>Styling responsive and modern layouts.</p>
+            <div class="bar"><div class="bar-fill" data-level="85"></div></div>
+          </article>
+
+          <article class="card skill-card tilt reveal">
+            <div class="icon">JS</div>
+            <h3>JavaScript</h3>
+            <p>Adding interaction and logic to websites.</p>
+            <div class="bar"><div class="bar-fill" data-level="70"></div></div>
+          </article>
+
+          <article class="card skill-card tilt reveal">
+            <div class="icon">✎</div>
+            <h3>UI Design</h3>
+            <p>Choosing colors, spacing and type that feel right.</p>
+            <div class="bar"><div class="bar-fill" data-level="75"></div></div>
+          </article>
+
+          <article class="card skill-card tilt reveal">
+            <div class="icon">⎇</div>
+            <h3>Git &amp; GitHub</h3>
+            <p>Saving versions and sharing my code.</p>
+            <div class="bar"><div class="bar-fill" data-level="60"></div></div>
+          </article>
+
+          <article class="card skill-card tilt reveal">
+            <div class="icon">★</div>
+            <h3>Problem Solving</h3>
+            <p>Breaking big problems into small, doable steps.</p>
+            <div class="bar"><div class="bar-fill" data-level="80"></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 5. PROJECTS ================= -->
+    <section class="section" id="projects">
+      <div class="container">
+        <p class="section-label reveal">03 / Projects</p>
+        <h2 class="section-title reveal">Things I've <span class="gradient-text">made</span></h2>
+
+        <div class="cards-grid projects-grid">
+
+          <article class="card project-card tilt reveal">
+            <div class="project-thumb thumb-1"><span>01</span></div>
+            <div class="project-body">
+              <h3>Pixel Art Studio</h3>
+              <p>A drawing app with a paint bucket, undo, custom colors and PNG download.</p>
+              <div class="tags"><span>Canvas</span><span>JavaScript</span><span>LocalStorage</span></div>
+              <a href="#" class="project-link" data-project="pixel">Open project →</a>
+            </div>
+          </article>
+
+          <article class="card project-card tilt reveal">
+            <div class="project-thumb thumb-2"><span>02</span></div>
+            <div class="project-body">
+              <h3>Typing Speed Test</h3>
+              <p>A 30-second typing test with live WPM, accuracy and a saved best score.</p>
+              <div class="tags"><span>JavaScript</span><span>Events</span></div>
+              <a href="#" class="project-link" data-project="typing">Open project →</a>
+            </div>
+          </article>
+
+          <article class="card project-card tilt reveal">
+            <div class="project-thumb thumb-3"><span>03</span></div>
+            <div class="project-body">
+              <h3>Memory Match Game</h3>
+              <p>A card-matching game with flip animations, move counter and best score.</p>
+              <div class="tags"><span>JavaScript</span><span>CSS 3D</span></div>
+              <a href="#" class="project-link" data-project="memory">Open project →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 6. CONTACT ================= -->
+    <section class="section section-alt" id="contact">
+      <div class="container">
+        <p class="section-label reveal">04 / Contact</p>
+        <h2 class="section-title reveal">Let's <span class="gradient-text">work together</span></h2>
+
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <p>
+              Have a project, an idea, or just want to say hi? Send me a message and
+              I'll get back to you as soon as I can.
+            </p>
+            <ul class="contact-list">
+              <li>📧 <a href="mailto:youremail@example.com">mariaemzilao17@gmail.com</a></li>
+              <li>🔗 <a href="#">Maria Emz Ogarte Ilao</a></li>
+              <li>💼 <a href="#">09946679164</a></li>
+            </ul>
+          </div>
+
+          <!-- Simple contact form. script.js checks it and shows a message. -->
+          <form class="contact-form reveal" id="contactForm" novalidate>
+            <div class="field">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Juan Dela Cruz" />
+            </div>
+            <div class="field">
+              <label for="email">Your Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+            <p class="form-status" id="formStatus" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= 7. FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <a href="#home" class="logo">My Portfolio<span>.</span></a>
+      <p>© <span id="year"></span> Maria Emz O. Ilao. Designed &amp; built with 💙 by Emz.</p>
+      <a href="#home" class="back-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <!-- Pop-up window that runs each mini project -->
+  <div class="proj-modal" id="projModal" aria-hidden="true">
+    <div class="proj-panel">
+      <button class="proj-close" id="projClose" aria-label="Close project">✕</button>
+      <iframe id="projFrame" title="Project"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // The three projects are stored here (encoded), so no extra files are needed.
+    const PROJECTS = {
+      pixel: "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgo8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCIgLz4KPHRpdGxlPlBpeGVsIEFydCBTdHVkaW88L3RpdGxlPgo8c3R5bGU+CiAgKntib3gtc2l6aW5nOmJvcmRlci1ib3g7bWFyZ2luOjA7cGFkZGluZzowfQogIGJvZHl7bWluLWhlaWdodDoxMDB2aDtkaXNwbGF5OmdyaWQ7cGxhY2UtaXRlbXM6Y2VudGVyO2JhY2tncm91bmQ6cmFkaWFsLWdyYWRpZW50KGNpcmNsZSBhdCAzMCUgMjAlLCMxNDIxM2QsIzBhMGYxZik7Y29sb3I6I2U4ZWZmZjtmb250LWZhbWlseTpJbnRlcixzeXN0ZW0tdWksc2Fucy1zZXJpZjtwYWRkaW5nOjE2cHh9CiAgLmFwcHt3aWR0aDoxMDAlO21heC13aWR0aDo0NjBweDtiYWNrZ3JvdW5kOiMxMDFhMzM7Ym9yZGVyOjFweCBzb2xpZCAjMjIzMjVjO2JvcmRlci1yYWRpdXM6MjRweDtwYWRkaW5nOjIycHg7Ym94LXNoYWRvdzowIDIwcHggNjBweCByZ2JhKDAsMCwwLC40KX0KICBoMXtmb250LXNpemU6MS4zcmVtO21hcmdpbi1ib3R0b206NHB4O3RleHQtYWxpZ246Y2VudGVyfQogIC5zdWJ7Y29sb3I6IzlkYjRlODtmb250LXNpemU6Ljg1cmVtO3RleHQtYWxpZ246Y2VudGVyO21hcmdpbi1ib3R0b206MTRweH0KICBjYW52YXN7ZGlzcGxheTpibG9jazt3aWR0aDoxMDAlO2FzcGVjdC1yYXRpbzoxO2JvcmRlci1yYWRpdXM6MTJweDtiYWNrZ3JvdW5kOiNmZmY7dG91Y2gtYWN0aW9uOm5vbmU7Y3Vyc29yOmNyb3NzaGFpcjtpbWFnZS1yZW5kZXJpbmc6cGl4ZWxhdGVkfQogIC50b29scywucGFsZXR0ZSwuYWN0aW9uc3tkaXNwbGF5OmZsZXg7ZmxleC13cmFwOndyYXA7Z2FwOjhweDtqdXN0aWZ5LWNvbnRlbnQ6Y2VudGVyO21hcmdpbi10b3A6MTRweH0KICAudG9vbHtiYWNrZ3JvdW5kOiMxZDJjNTI7Y29sb3I6I2NmZTBmZjtib3JkZXI6MXB4IHNvbGlkICMyYTNkNzA7cGFkZGluZzo4cHggMTRweDtib3JkZXItcmFkaXVzOjEwcHg7Y3Vyc29yOnBvaW50ZXI7Zm9udC1zaXplOi45cmVtfQogIC50b29sLmFjdGl2ZXtiYWNrZ3JvdW5kOiMzYjgyZjY7Ym9yZGVyLWNvbG9yOiMzYjgyZjY7Y29sb3I6I2ZmZn0KICAuc3d7d2lkdGg6MzBweDtoZWlnaHQ6MzBweDtib3JkZXItcmFkaXVzOjhweDtib3JkZXI6MnB4IHNvbGlkIHRyYW5zcGFyZW50O2N1cnNvcjpwb2ludGVyfQogIC5zdy5hY3RpdmV7Ym9yZGVyLWNvbG9yOiNmZmY7dHJhbnNmb3JtOnNjYWxlKDEuMTUpfQogIGlucHV0W3R5cGU9Y29sb3Jde3dpZHRoOjM4cHg7aGVpZ2h0OjMwcHg7Ym9yZGVyOjA7YmFja2dyb3VuZDpub25lO2N1cnNvcjpwb2ludGVyO3BhZGRpbmc6MH0KICAuYWN0aW9ucyBidXR0b257YmFja2dyb3VuZDojM2I4MmY2O2NvbG9yOiNmZmY7Ym9yZGVyOjA7cGFkZGluZzoxMHB4IDE4cHg7Ym9yZGVyLXJhZGl1czoxMHB4O2N1cnNvcjpwb2ludGVyO2ZvbnQtc2l6ZTouOXJlbX0KICAuYWN0aW9ucyAuZ2hvc3R7YmFja2dyb3VuZDojMWQyYzUyfQo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5Pgo8ZGl2IGNsYXNzPSJhcHAiPgogIDxoMT7wn46oIFBpeGVsIEFydCBTdHVkaW88L2gxPgogIDxwIGNsYXNzPSJzdWIiPkRyYXcgb24gdGhlIGdyaWQsIHRoZW4gZG93bmxvYWQgeW91ciBhcnQgYXMgYSBQTkcuPC9wPgogIDxjYW52YXMgaWQ9ImN2IiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PC9jYW52YXM+CgogIDxkaXYgY2xhc3M9InRvb2xzIiBpZD0idG9vbHMiPgogICAgPGJ1dHRvbiBjbGFzcz0idG9vbCBhY3RpdmUiIGRhdGEtdD0iZHJhdyI+4pyP77iPIERyYXc8L2J1dHRvbj4KICAgIDxidXR0b24gY2xhc3M9InRvb2wiIGRhdGEtdD0iZXJhc2UiPvCfp70gRXJhc2U8L2J1dHRvbj4KICAgIDxidXR0b24gY2xhc3M9InRvb2wiIGRhdGEtdD0iZmlsbCI+8J+qoyBGaWxsPC9idXR0b24+CiAgICA8YnV0dG9uIGNsYXNzPSJ0b29sIiBkYXRhLXQ9InBpY2siPvCfkqcgUGljazwvYnV0dG9uPgogIDwvZGl2PgogIDxkaXYgY2xhc3M9InBhbGV0dGUiIGlkPSJwYWxldHRlIj48L2Rpdj4KICA8ZGl2IGNsYXNzPSJhY3Rpb25zIj4KICAgIDxidXR0b24gY2xhc3M9Imdob3N0IiBpZD0idW5kbyI+4oa2IFVuZG88L2J1dHRvbj4KICAgIDxidXR0b24gY2xhc3M9Imdob3N0IiBpZD0iY2xlYXIiPkNsZWFyPC9idXR0b24+CiAgICA8YnV0dG9uIGlkPSJzYXZlIj7irIcgRG93bmxvYWQgUE5HPC9idXR0b24+CiAgPC9kaXY+CjwvZGl2PgoKPHNjcmlwdD4KICBjb25zdCBOID0gMTYsIFMgPSA1MTIgLyBOOwogIGNvbnN0IGN2ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2N2JyksIGN0eCA9IGN2LmdldENvbnRleHQoJzJkJyk7CiAgY29uc3QgQ09MT1JTID0gWycjMDAwMDAwJywnI2ZmZmZmZicsJyNlZjQ0NDQnLCcjZjk3MzE2JywnI2ZhY2MxNScsJyM0YWRlODAnLCcjMDZiNmQ0JywnIzNiODJmNicsJyM4YjVjZjYnLCcjZWM0ODk5JywnIzc4MzUwZicsJyM5NGEzYjgnXTsKICBsZXQgY29sb3IgPSAnIzNiODJmNicsIHRvb2wgPSAnZHJhdycsIGRyYXdpbmcgPSBmYWxzZTsKICBsZXQgZ3JpZCA9IEFycmF5LmZyb20oe2xlbmd0aDpOfSwgKCkgPT4gQXJyYXkoTikuZmlsbChudWxsKSk7CiAgbGV0IGhpc3RvcnkgPSBbXTsKCiAgdHJ5IHsgY29uc3QgcyA9IEpTT04ucGFyc2UobG9jYWxTdG9yYWdlLmdldEl0ZW0oJ3BpeGVsQXJ0JykpOyBpZiAocyAmJiBzLmxlbmd0aCA9PT0gTikgZ3JpZCA9IHM7IH0gY2F0Y2goZSl7fQoKICBmdW5jdGlvbiByZW5kZXIoKXsKICAgIGN0eC5jbGVhclJlY3QoMCwwLDUxMiw1MTIpOwogICAgZm9yIChsZXQgeT0wO3k8Tjt5KyspIGZvciAobGV0IHg9MDt4PE47eCsrKXsKICAgICAgY3R4LmZpbGxTdHlsZSA9IGdyaWRbeV1beF0gfHwgKCh4K3kpJTIgPyAnI2YxZjVmOScgOiAnI2ZmZmZmZicpOwogICAgICBjdHguZmlsbFJlY3QoeCpTLCB5KlMsIFMsIFMpOwogICAgfQogICAgY3R4LnN0cm9rZVN0eWxlID0gJ3JnYmEoMCwwLDAsLjA4KSc7CiAgICBmb3IgKGxldCBpPTA7aTw9TjtpKyspewogICAgICBjdHguYmVnaW5QYXRoKCk7IGN0eC5tb3ZlVG8oaSpTLDApOyBjdHgubGluZVRvKGkqUyw1MTIpOyBjdHguc3Ryb2tlKCk7CiAgICAgIGN0eC5iZWdpblBhdGgoKTsgY3R4Lm1vdmVUbygwLGkqUyk7IGN0eC5saW5lVG8oNTEyLGkqUyk7IGN0eC5zdHJva2UoKTsKICAgIH0KICAgIHRyeSB7IGxvY2FsU3RvcmFnZS5zZXRJdGVtKCdwaXhlbEFydCcsIEpTT04uc3RyaW5naWZ5KGdyaWQpKTsgfSBjYXRjaChlKXt9CiAgfQogIGZ1bmN0aW9uIHNuYXBzaG90KCl7IGhpc3RvcnkucHVzaChKU09OLnN0cmluZ2lmeShncmlkKSk7IGlmIChoaXN0b3J5Lmxlbmd0aCA+IDMwKSBoaXN0b3J5LnNoaWZ0KCk7IH0KICBmdW5jdGlvbiBjZWxsKGUpewogICAgY29uc3QgciA9IGN2LmdldEJvdW5kaW5nQ2xpZW50UmVjdCgpOwogICAgcmV0dXJuIFtNYXRoLmZsb29yKChlLmNsaWVudFggLSByLmxlZnQpIC8gci53aWR0aCAqIE4pLCBNYXRoLmZsb29yKChlLmNsaWVudFkgLSByLnRvcCkgLyByLmhlaWdodCAqIE4pXTsKICB9CiAgZnVuY3Rpb24gZmxvb2QoeCwgeSwgZnJvbSwgdG8pewogICAgaWYgKGZyb20gPT09IHRvKSByZXR1cm47CiAgICBjb25zdCBzdGFjayA9IFtbeCx5XV07CiAgICB3aGlsZSAoc3RhY2subGVuZ3RoKXsKICAgICAgY29uc3QgW2N4LGN5XSA9IHN0YWNrLnBvcCgpOwogICAgICBpZiAoY3g8MHx8Y3k8MHx8Y3g+PU58fGN5Pj1OfHxncmlkW2N5XVtjeF0gIT09IGZyb20pIGNvbnRpbnVlOwogICAgICBncmlkW2N5XVtjeF0gPSB0bzsKICAgICAgc3RhY2sucHVzaChbY3grMSxjeV0sW2N4LTEsY3ldLFtjeCxjeSsxXSxbY3gsY3ktMV0pOwogICAgfQogIH0KICBmdW5jdGlvbiBhcHBseShlKXsKICAgIGNvbnN0IFt4LHldID0gY2VsbChlKTsKICAgIGlmICh4PDB8fHk8MHx8eD49Tnx8eT49TikgcmV0dXJuOwogICAgaWYgKHRvb2wgPT09ICdkcmF3JykgZ3JpZFt5XVt4XSA9IGNvbG9yOwogICAgZWxzZSBpZiAodG9vbCA9PT0gJ2VyYXNlJykgZ3JpZFt5XVt4XSA9IG51bGw7CiAgICBlbHNlIGlmICh0b29sID09PSAncGljaycpeyBpZiAoZ3JpZFt5XVt4XSkgc2V0Q29sb3IoZ3JpZFt5XVt4XSk7IHNldFRvb2woJ2RyYXcnKTsgcmV0dXJuOyB9CiAgICByZW5kZXIoKTsKICB9CiAgY3YuYWRkRXZlbnRMaXN0ZW5lcigncG9pbnRlcmRvd24nLCBlID0+IHsKICAgIHNuYXBzaG90KCk7CiAgICBpZiAodG9vbCA9PT0gJ2ZpbGwnKXsKICAgICAgY29uc3QgW3gseV0gPSBjZWxsKGUpOyBmbG9vZCh4LCB5LCBncmlkW3ldW3hdLCBjb2xvcik7IHJlbmRlcigpOyByZXR1cm47CiAgICB9CiAgICBkcmF3aW5nID0gdHJ1ZTsgY3Yuc2V0UG9pbnRlckNhcHR1cmUoZS5wb2ludGVySWQpOyBhcHBseShlKTsKICB9KTsKICBjdi5hZGRFdmVudExpc3RlbmVyKCdwb2ludGVybW92ZScsIGUgPT4geyBpZiAoZHJhd2luZykgYXBwbHkoZSk7IH0pOwogIGN2LmFkZEV2ZW50TGlzdGVuZXIoJ3BvaW50ZXJ1cCcsICgpID0+IGRyYXdpbmcgPSBmYWxzZSk7CgogIGZ1bmN0aW9uIHNldFRvb2wodCl7CiAgICB0b29sID0gdDsKICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJy50b29sJykuZm9yRWFjaChiID0+IGIuY2xhc3NMaXN0LnRvZ2dsZSgnYWN0aXZlJywgYi5kYXRhc2V0LnQgPT09IHQpKTsKICB9CiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnLnRvb2wnKS5mb3JFYWNoKGIgPT4gYi5vbmNsaWNrID0gKCkgPT4gc2V0VG9vbChiLmRhdGFzZXQudCkpOwoKICBjb25zdCBwYWwgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncGFsZXR0ZScpOwogIGZ1bmN0aW9uIHNldENvbG9yKGMpewogICAgY29sb3IgPSBjOwogICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnLnN3JykuZm9yRWFjaChzID0+IHMuY2xhc3NMaXN0LnRvZ2dsZSgnYWN0aXZlJywgcy5kYXRhc2V0LmMgPT09IGMpKTsKICB9CiAgQ09MT1JTLmZvckVhY2goYyA9PiB7CiAgICBjb25zdCBzID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7CiAgICBzLmNsYXNzTmFtZSA9ICdzdyc7IHMuc3R5bGUuYmFja2dyb3VuZCA9IGM7IHMuZGF0YXNldC5jID0gYzsKICAgIHMub25jbGljayA9ICgpID0+IHsgc2V0Q29sb3IoYyk7IGlmICh0b29sICE9PSAnZmlsbCcpIHNldFRvb2woJ2RyYXcnKTsgfTsKICAgIHBhbC5hcHBlbmRDaGlsZChzKTsKICB9KTsKICBjb25zdCBjdXN0b20gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdpbnB1dCcpOwogIGN1c3RvbS50eXBlID0gJ2NvbG9yJzsgY3VzdG9tLnZhbHVlID0gJyMzYjgyZjYnOyBjdXN0b20udGl0bGUgPSAnQ3VzdG9tIGNvbG9yJzsKICBjdXN0b20ub25pbnB1dCA9ICgpID0+IHsgc2V0Q29sb3IoY3VzdG9tLnZhbHVlKTsgc2V0VG9vbCgnZHJhdycpOyB9OwogIHBhbC5hcHBlbmRDaGlsZChjdXN0b20pOwoKICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgndW5kbycpLm9uY2xpY2sgPSAoKSA9PiB7IGlmIChoaXN0b3J5Lmxlbmd0aCl7IGdyaWQgPSBKU09OLnBhcnNlKGhpc3RvcnkucG9wKCkpOyByZW5kZXIoKTsgfSB9OwogIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdjbGVhcicpLm9uY2xpY2sgPSAoKSA9PiB7IHNuYXBzaG90KCk7IGdyaWQgPSBBcnJheS5mcm9tKHtsZW5ndGg6Tn0sICgpID0+IEFycmF5KE4pLmZpbGwobnVsbCkpOyByZW5kZXIoKTsgfTsKICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnc2F2ZScpLm9uY2xpY2sgPSAoKSA9PiB7CiAgICBjb25zdCBvdXQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdjYW52YXMnKTsgb3V0LndpZHRoID0gb3V0LmhlaWdodCA9IE4gKiAyMDsKICAgIGNvbnN0IG8gPSBvdXQuZ2V0Q29udGV4dCgnMmQnKTsKICAgIGZvciAobGV0IHk9MDt5PE47eSsrKSBmb3IgKGxldCB4PTA7eDxOO3grKyl7CiAgICAgIGlmIChncmlkW3ldW3hdKXsgby5maWxsU3R5bGUgPSBncmlkW3ldW3hdOyBvLmZpbGxSZWN0KHgqMjAsIHkqMjAsIDIwLCAyMCk7IH0KICAgIH0KICAgIGNvbnN0IGEgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdhJyk7CiAgICBhLmRvd25sb2FkID0gJ215LXBpeGVsLWFydC5wbmcnOyBhLmhyZWYgPSBvdXQudG9EYXRhVVJMKCdpbWFnZS9wbmcnKTsgYS5jbGljaygpOwogIH07CiAgc2V0Q29sb3IoY29sb3IpOyByZW5kZXIoKTsKPC9zY3JpcHQ+CjwvYm9keT4KPC9odG1sPgo=",
+      typing: "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgo8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCIgLz4KPHRpdGxlPlR5cGluZyBTcGVlZCBUZXN0PC90aXRsZT4KPHN0eWxlPgogICp7Ym94LXNpemluZzpib3JkZXItYm94O21hcmdpbjowO3BhZGRpbmc6MH0KICBib2R5e21pbi1oZWlnaHQ6MTAwdmg7ZGlzcGxheTpncmlkO3BsYWNlLWl0ZW1zOmNlbnRlcjtiYWNrZ3JvdW5kOnJhZGlhbC1ncmFkaWVudChjaXJjbGUgYXQgNzAlIDEwJSwjMTQyMTNkLCMwYTBmMWYpO2NvbG9yOiNlOGVmZmY7Zm9udC1mYW1pbHk6SW50ZXIsc3lzdGVtLXVpLHNhbnMtc2VyaWY7cGFkZGluZzoxNnB4fQogIC5hcHB7d2lkdGg6MTAwJTttYXgtd2lkdGg6NjgwcHg7YmFja2dyb3VuZDojMTAxYTMzO2JvcmRlcjoxcHggc29saWQgIzIyMzI1Yztib3JkZXItcmFkaXVzOjI0cHg7cGFkZGluZzoyOHB4O2JveC1zaGFkb3c6MCAyMHB4IDYwcHggcmdiYSgwLDAsMCwuNCl9CiAgaDF7Zm9udC1zaXplOjEuM3JlbTttYXJnaW4tYm90dG9tOjZweH0KICAuc3Vie2NvbG9yOiM5ZGI0ZTg7Zm9udC1zaXplOi45cmVtO21hcmdpbi1ib3R0b206MjBweH0KICAuc3RhdHN7ZGlzcGxheTpmbGV4O2dhcDoxMnB4O21hcmdpbi1ib3R0b206MThweH0KICAuc3RhdHtmbGV4OjE7YmFja2dyb3VuZDojMGMxNTMwO2JvcmRlcjoxcHggc29saWQgIzIyMzI1Yztib3JkZXItcmFkaXVzOjE0cHg7cGFkZGluZzoxMnB4O3RleHQtYWxpZ246Y2VudGVyfQogIC5zdGF0IGJ7ZGlzcGxheTpibG9jaztmb250LXNpemU6MS42cmVtO2NvbG9yOiM2MGE1ZmF9CiAgLnN0YXQgc21hbGx7Y29sb3I6IzlkYjRlOH0KICAudGV4dHtmb250LWZhbWlseTonQ291cmllciBOZXcnLG1vbm9zcGFjZTtmb250LXNpemU6MS4yNXJlbTtsaW5lLWhlaWdodDoxLjk7YmFja2dyb3VuZDojMGMxNTMwO2JvcmRlci1yYWRpdXM6MTRweDtwYWRkaW5nOjE4cHg7bWFyZ2luLWJvdHRvbToxNHB4O3VzZXItc2VsZWN0Om5vbmV9CiAgLnRleHQgc3Bhbi5va3tjb2xvcjojNGFkZTgwfQogIC50ZXh0IHNwYW4uYmFke2NvbG9yOiNmODcxNzE7YmFja2dyb3VuZDpyZ2JhKDI0OCwxMTMsMTEzLC4xNSl9CiAgLnRleHQgc3Bhbi5jdXJ7Ym9yZGVyLWxlZnQ6MnB4IHNvbGlkICMzYjgyZjY7bWFyZ2luLWxlZnQ6LTJweDthbmltYXRpb246YiAxcyBpbmZpbml0ZX0KICBAa2V5ZnJhbWVzIGJ7NTAle2JvcmRlci1jb2xvcjp0cmFuc3BhcmVudH19CiAgdGV4dGFyZWF7cG9zaXRpb246YWJzb2x1dGU7b3BhY2l0eTowO3BvaW50ZXItZXZlbnRzOm5vbmV9CiAgYnV0dG9ue2JhY2tncm91bmQ6IzNiODJmNjtjb2xvcjojZmZmO2JvcmRlcjowO3BhZGRpbmc6MTJweCAyNnB4O2JvcmRlci1yYWRpdXM6MTJweDtmb250LXNpemU6MXJlbTtjdXJzb3I6cG9pbnRlcn0KICAuaGludHtjb2xvcjojOWRiNGU4O2ZvbnQtc2l6ZTouODVyZW07bWFyZ2luLXRvcDoxMnB4fQo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5Pgo8ZGl2IGNsYXNzPSJhcHAiPgogIDxoMT7ijKggVHlwaW5nIFNwZWVkIFRlc3Q8L2gxPgogIDxwIGNsYXNzPSJzdWIiPkNsaWNrIHRoZSB0ZXh0IGFuZCBzdGFydCB0eXBpbmcuIFlvdSBoYXZlIDMwIHNlY29uZHMuPC9wPgogIDxkaXYgY2xhc3M9InN0YXRzIj4KICAgIDxkaXYgY2xhc3M9InN0YXQiPjxiIGlkPSJ0aW1lIj4zMDwvYj48c21hbGw+c2Vjb25kczwvc21hbGw+PC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJzdGF0Ij48YiBpZD0id3BtIj4wPC9iPjxzbWFsbD5XUE08L3NtYWxsPjwvZGl2PgogICAgPGRpdiBjbGFzcz0ic3RhdCI+PGIgaWQ9ImFjYyI+MTAwPC9iPjxzbWFsbD4lIGFjY3VyYWN5PC9zbWFsbD48L2Rpdj4KICAgIDxkaXYgY2xhc3M9InN0YXQiPjxiIGlkPSJiZXN0Ij4wPC9iPjxzbWFsbD5iZXN0IFdQTTwvc21hbGw+PC9kaXY+CiAgPC9kaXY+CiAgPGRpdiBjbGFzcz0idGV4dCIgaWQ9InRleHQiPjwvZGl2PgogIDx0ZXh0YXJlYSBpZD0iaW5wdXQiIGF1dG9jb21wbGV0ZT0ib2ZmIiBzcGVsbGNoZWNrPSJmYWxzZSI+PC90ZXh0YXJlYT4KICA8YnV0dG9uIGlkPSJhZ2FpbiI+VHJ5IGFnYWluPC9idXR0b24+CiAgPHAgY2xhc3M9ImhpbnQiIGlkPSJoaW50Ij5XYWl0aW5nIGZvciB5b3UgdG8gc3RhcnTigKY8L3A+CjwvZGl2PgoKPHNjcmlwdD4KICBjb25zdCBXT1JEUyA9ICJjb2RpbmcgbWFrZXMgaWRlYXMgcmVhbCBhbmQgZXZlcnkgc21hbGwgcHJvamVjdCB0ZWFjaGVzIHNvbWV0aGluZyBuZXcgc28ga2VlcCBidWlsZGluZyBrZWVwIGxlYXJuaW5nIGFuZCBuZXZlciBzdG9wIGFza2luZyBxdWVzdGlvbnMgYmVjYXVzZSBjdXJpb3VzIHN0dWRlbnRzIGJlY29tZSBncmVhdCBkZXZlbG9wZXJzIi5zcGxpdCgiICIpOwogIGNvbnN0IHRleHRFbCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd0ZXh0Jyk7CiAgY29uc3QgaW5wdXQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnaW5wdXQnKTsKICBsZXQgdGFyZ2V0LCBzdGFydGVkLCB0aW1lciwgbGVmdCwgdHlwZWRDb3VudCwgZXJyb3JzOwogIGxldCBiZXN0ID0gMDsKICB0cnkgeyBiZXN0ID0gK2xvY2FsU3RvcmFnZS5nZXRJdGVtKCd0eXBpbmdCZXN0JykgfHwgMDsgfSBjYXRjaChlKXt9CiAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2Jlc3QnKS50ZXh0Q29udGVudCA9IGJlc3Q7CgogIGZ1bmN0aW9uIG1ha2VUZXh0KCl7CiAgICBjb25zdCBhcnIgPSBbXTsKICAgIGZvciAobGV0IGkgPSAwOyBpIDwgNjA7IGkrKykgYXJyLnB1c2goV09SRFNbTWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpKldPUkRTLmxlbmd0aCldKTsKICAgIHJldHVybiBhcnIuam9pbignICcpOwogIH0KICBmdW5jdGlvbiByZXNldCgpewogICAgY2xlYXJJbnRlcnZhbCh0aW1lcik7CiAgICB0YXJnZXQgPSBtYWtlVGV4dCgpOyBzdGFydGVkID0gZmFsc2U7IGxlZnQgPSAzMDsgdHlwZWRDb3VudCA9IDA7IGVycm9ycyA9IDA7CiAgICBpbnB1dC52YWx1ZSA9ICcnOyBpbnB1dC5kaXNhYmxlZCA9IGZhbHNlOwogICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3RpbWUnKS50ZXh0Q29udGVudCA9IDMwOwogICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3dwbScpLnRleHRDb250ZW50ID0gMDsKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdhY2MnKS50ZXh0Q29udGVudCA9IDEwMDsKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdoaW50JykudGV4dENvbnRlbnQgPSAnV2FpdGluZyBmb3IgeW91IHRvIHN0YXJ04oCmJzsKICAgIHJlbmRlcigpOyBpbnB1dC5mb2N1cygpOwogIH0KICBmdW5jdGlvbiByZW5kZXIoKXsKICAgIGNvbnN0IHYgPSBpbnB1dC52YWx1ZTsKICAgIHRleHRFbC5pbm5lckhUTUwgPSBbLi4udGFyZ2V0XS5tYXAoKGNoLGkpID0+IHsKICAgICAgbGV0IGNscyA9IGkgPT09IHYubGVuZ3RoID8gJ2N1cicgOiAnJzsKICAgICAgaWYgKGkgPCB2Lmxlbmd0aCkgY2xzID0gdltpXSA9PT0gY2ggPyAnb2snIDogJ2JhZCc7CiAgICAgIHJldHVybiBgPHNwYW4gY2xhc3M9IiR7Y2xzfSI+JHtjaH08L3NwYW4+YDsKICAgIH0pLmpvaW4oJycpOwogIH0KICBmdW5jdGlvbiBzdGF0cygpewogICAgY29uc3QgdiA9IGlucHV0LnZhbHVlOwogICAgbGV0IGNvcnJlY3QgPSAwOwogICAgZm9yIChsZXQgaSA9IDA7IGkgPCB2Lmxlbmd0aDsgaSsrKSBpZiAodltpXSA9PT0gdGFyZ2V0W2ldKSBjb3JyZWN0Kys7CiAgICBjb25zdCBtaW5zID0gKDMwIC0gbGVmdCkgLyA2MCB8fCAxLzYwOwogICAgY29uc3Qgd3BtID0gTWF0aC5yb3VuZCgoY29ycmVjdCAvIDUpIC8gbWlucyk7CiAgICBjb25zdCBhY2MgPSB2Lmxlbmd0aCA/IE1hdGgucm91bmQoY29ycmVjdCAvIHYubGVuZ3RoICogMTAwKSA6IDEwMDsKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd3cG0nKS50ZXh0Q29udGVudCA9IHdwbTsKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdhY2MnKS50ZXh0Q29udGVudCA9IGFjYzsKICAgIHJldHVybiB3cG07CiAgfQogIGZ1bmN0aW9uIGZpbmlzaCgpewogICAgY2xlYXJJbnRlcnZhbCh0aW1lcik7IGlucHV0LmRpc2FibGVkID0gdHJ1ZTsKICAgIGNvbnN0IHdwbSA9IHN0YXRzKCk7CiAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnaGludCcpLnRleHRDb250ZW50ID0gYFRpbWUncyB1cCEgWW91IHR5cGVkIGF0ICR7d3BtfSBXUE0uYDsKICAgIGlmICh3cG0gPiBiZXN0KXsKICAgICAgYmVzdCA9IHdwbTsgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2Jlc3QnKS50ZXh0Q29udGVudCA9IGJlc3Q7CiAgICAgIHRyeXsgbG9jYWxTdG9yYWdlLnNldEl0ZW0oJ3R5cGluZ0Jlc3QnLCBiZXN0KTsgfWNhdGNoKGUpe30KICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2hpbnQnKS50ZXh0Q29udGVudCArPSAnIPCfjokgTmV3IGJlc3QhJzsKICAgIH0KICB9CiAgaW5wdXQuYWRkRXZlbnRMaXN0ZW5lcignaW5wdXQnLCAoKSA9PiB7CiAgICBpZiAoIXN0YXJ0ZWQpewogICAgICBzdGFydGVkID0gdHJ1ZTsKICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2hpbnQnKS50ZXh0Q29udGVudCA9ICdHbyBnbyBnbyEnOwogICAgICB0aW1lciA9IHNldEludGVydmFsKCgpID0+IHsKICAgICAgICBsZWZ0LS07IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd0aW1lJykudGV4dENvbnRlbnQgPSBsZWZ0OwogICAgICAgIHN0YXRzKCk7IGlmIChsZWZ0IDw9IDApIGZpbmlzaCgpOwogICAgICB9LCAxMDAwKTsKICAgIH0KICAgIHJlbmRlcigpOyBzdGF0cygpOwogIH0pOwogIHRleHRFbC5vbmNsaWNrID0gKCkgPT4gaW5wdXQuZm9jdXMoKTsKICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYWdhaW4nKS5vbmNsaWNrID0gcmVzZXQ7CiAgcmVzZXQoKTsKPC9zY3JpcHQ+CjwvYm9keT4KPC9odG1sPgo=",
+      memory: "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgo8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCIgLz4KPHRpdGxlPk1lbW9yeSBNYXRjaDwvdGl0bGU+CjxzdHlsZT4KICAqe2JveC1zaXppbmc6Ym9yZGVyLWJveDttYXJnaW46MDtwYWRkaW5nOjB9CiAgYm9keXttaW4taGVpZ2h0OjEwMHZoO2Rpc3BsYXk6Z3JpZDtwbGFjZS1pdGVtczpjZW50ZXI7YmFja2dyb3VuZDpyYWRpYWwtZ3JhZGllbnQoY2lyY2xlIGF0IDIwJSA4MCUsIzE0MjEzZCwjMGEwZjFmKTtjb2xvcjojZThlZmZmO2ZvbnQtZmFtaWx5OkludGVyLHN5c3RlbS11aSxzYW5zLXNlcmlmO3BhZGRpbmc6MTZweH0KICAuYXBwe3dpZHRoOjEwMCU7bWF4LXdpZHRoOjQyMHB4O2JhY2tncm91bmQ6IzEwMWEzMztib3JkZXI6MXB4IHNvbGlkICMyMjMyNWM7Ym9yZGVyLXJhZGl1czoyNHB4O3BhZGRpbmc6MjRweDtib3gtc2hhZG93OjAgMjBweCA2MHB4IHJnYmEoMCwwLDAsLjQpO3RleHQtYWxpZ246Y2VudGVyfQogIGgxe2ZvbnQtc2l6ZToxLjNyZW07bWFyZ2luLWJvdHRvbToxNHB4fQogIC5iYXJ7ZGlzcGxheTpmbGV4O2p1c3RpZnktY29udGVudDpzcGFjZS1iZXR3ZWVuO21hcmdpbi1ib3R0b206MTRweDtjb2xvcjojOWRiNGU4O2ZvbnQtc2l6ZTouOXJlbX0KICAuYmFyIGJ7Y29sb3I6IzYwYTVmYX0KICAuZ3JpZHtkaXNwbGF5OmdyaWQ7Z3JpZC10ZW1wbGF0ZS1jb2x1bW5zOnJlcGVhdCg0LDFmcik7Z2FwOjEwcHg7bWFyZ2luLWJvdHRvbToxNnB4fQogIC5jYXJke2FzcGVjdC1yYXRpbzoxO3BlcnNwZWN0aXZlOjYwMHB4O2N1cnNvcjpwb2ludGVyfQogIC5pbm5lcntwb3NpdGlvbjpyZWxhdGl2ZTt3aWR0aDoxMDAlO2hlaWdodDoxMDAlO3RyYW5zaXRpb246dHJhbnNmb3JtIC40NXM7dHJhbnNmb3JtLXN0eWxlOnByZXNlcnZlLTNkfQogIC5jYXJkLmZsaXAgLmlubmVyLC5jYXJkLm1hdGNoIC5pbm5lcnt0cmFuc2Zvcm06cm90YXRlWSgxODBkZWcpfQogIC5mYWNle3Bvc2l0aW9uOmFic29sdXRlO2luc2V0OjA7ZGlzcGxheTpncmlkO3BsYWNlLWl0ZW1zOmNlbnRlcjtib3JkZXItcmFkaXVzOjE0cHg7YmFja2ZhY2UtdmlzaWJpbGl0eTpoaWRkZW47Zm9udC1zaXplOjJyZW19CiAgLmZyb250e2JhY2tncm91bmQ6bGluZWFyLWdyYWRpZW50KDEzNWRlZywjM2I4MmY2LCMxZDRlZDgpO2ZvbnQtc2l6ZToxLjRyZW07Y29sb3I6I2JmZGJmZX0KICAuYmFja3tiYWNrZ3JvdW5kOiMwYzE1MzA7Ym9yZGVyOjFweCBzb2xpZCAjMmEzZDcwO3RyYW5zZm9ybTpyb3RhdGVZKDE4MGRlZyl9CiAgLmNhcmQubWF0Y2ggLmJhY2t7Ym9yZGVyLWNvbG9yOiM0YWRlODA7YmFja2dyb3VuZDojMGYyYTFmfQogIGJ1dHRvbntiYWNrZ3JvdW5kOiMzYjgyZjY7Y29sb3I6I2ZmZjtib3JkZXI6MDtwYWRkaW5nOjExcHggMjRweDtib3JkZXItcmFkaXVzOjEycHg7Zm9udC1zaXplOjFyZW07Y3Vyc29yOnBvaW50ZXJ9CiAgLndpbnttYXJnaW4tdG9wOjEycHg7Y29sb3I6IzRhZGU4MDttaW4taGVpZ2h0OjEuNGVtfQo8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5Pgo8ZGl2IGNsYXNzPSJhcHAiPgogIDxoMT7wn6egIE1lbW9yeSBNYXRjaDwvaDE+CiAgPGRpdiBjbGFzcz0iYmFyIj4KICAgIDxzcGFuPk1vdmVzOiA8YiBpZD0ibW92ZXMiPjA8L2I+PC9zcGFuPgogICAgPHNwYW4+VGltZTogPGIgaWQ9InRpbWUiPjA8L2I+czwvc3Bhbj4KICAgIDxzcGFuPkJlc3Q6IDxiIGlkPSJiZXN0Ij7igJM8L2I+PC9zcGFuPgogIDwvZGl2PgogIDxkaXYgY2xhc3M9ImdyaWQiIGlkPSJncmlkIj48L2Rpdj4KICA8YnV0dG9uIGlkPSJyZXN0YXJ0Ij5OZXcgR2FtZTwvYnV0dG9uPgogIDxwIGNsYXNzPSJ3aW4iIGlkPSJ3aW4iPjwvcD4KPC9kaXY+Cgo8c2NyaXB0PgogIGNvbnN0IElDT05TID0gWyfwn5K7Jywn8J+OpycsJ/Cfk5onLCfwn5qAJywn8J+OqCcsJ+KYlScsJ/CflKUnLCfirZAnXTsKICBjb25zdCBncmlkID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2dyaWQnKTsKICBsZXQgZmlyc3QgPSBudWxsLCBsb2NrID0gZmFsc2UsIG1vdmVzID0gMCwgbWF0Y2hlZCA9IDAsIHNlYyA9IDAsIHRpbWVyID0gbnVsbDsKICBsZXQgYmVzdCA9IG51bGw7CiAgdHJ5IHsgYmVzdCA9ICtsb2NhbFN0b3JhZ2UuZ2V0SXRlbSgnbWVtb3J5QmVzdCcpIHx8IG51bGw7IH0gY2F0Y2goZSl7fQogIGlmIChiZXN0KSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYmVzdCcpLnRleHRDb250ZW50ID0gYmVzdDsKCiAgZnVuY3Rpb24gc2h1ZmZsZShhKXsgZm9yIChsZXQgaT1hLmxlbmd0aC0xO2k+MDtpLS0peyBjb25zdCBqPU1hdGguZmxvb3IoTWF0aC5yYW5kb20oKSooaSsxKSk7IFthW2ldLGFbal1dPVthW2pdLGFbaV1dOyB9IHJldHVybiBhOyB9CgogIGZ1bmN0aW9uIG5ld0dhbWUoKXsKICAgIGNsZWFySW50ZXJ2YWwodGltZXIpOyB0aW1lciA9IG51bGw7CiAgICBmaXJzdCA9IG51bGw7IGxvY2sgPSBmYWxzZTsgbW92ZXMgPSAwOyBtYXRjaGVkID0gMDsgc2VjID0gMDsKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdtb3ZlcycpLnRleHRDb250ZW50ID0gMDsKICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCd0aW1lJykudGV4dENvbnRlbnQgPSAwOwogICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3dpbicpLnRleHRDb250ZW50ID0gJyc7CiAgICBncmlkLmlubmVySFRNTCA9ICcnOwogICAgc2h1ZmZsZShbLi4uSUNPTlMsIC4uLklDT05TXSkuZm9yRWFjaChpY29uID0+IHsKICAgICAgY29uc3QgYyA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpOwogICAgICBjLmNsYXNzTmFtZSA9ICdjYXJkJzsgYy5kYXRhc2V0Lmljb24gPSBpY29uOwogICAgICBjLmlubmVySFRNTCA9IGA8ZGl2IGNsYXNzPSJpbm5lciI+PGRpdiBjbGFzcz0iZmFjZSBmcm9udCI+PzwvZGl2PjxkaXYgY2xhc3M9ImZhY2UgYmFjayI+JHtpY29ufTwvZGl2PjwvZGl2PmA7CiAgICAgIGMub25jbGljayA9ICgpID0+IHBpY2soYyk7CiAgICAgIGdyaWQuYXBwZW5kQ2hpbGQoYyk7CiAgICB9KTsKICB9CiAgZnVuY3Rpb24gcGljayhjKXsKICAgIGlmIChsb2NrIHx8IGMuY2xhc3NMaXN0LmNvbnRhaW5zKCdmbGlwJykgfHwgYy5jbGFzc0xpc3QuY29udGFpbnMoJ21hdGNoJykpIHJldHVybjsKICAgIGlmICghdGltZXIpIHRpbWVyID0gc2V0SW50ZXJ2YWwoKCkgPT4geyBzZWMrKzsgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3RpbWUnKS50ZXh0Q29udGVudCA9IHNlYzsgfSwgMTAwMCk7CiAgICBjLmNsYXNzTGlzdC5hZGQoJ2ZsaXAnKTsKICAgIGlmICghZmlyc3QpeyBmaXJzdCA9IGM7IHJldHVybjsgfQogICAgbW92ZXMrKzsgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ21vdmVzJykudGV4dENvbnRlbnQgPSBtb3ZlczsKICAgIGlmIChmaXJzdC5kYXRhc2V0Lmljb24gPT09IGMuZGF0YXNldC5pY29uKXsKICAgICAgZmlyc3QuY2xhc3NMaXN0LnJlcGxhY2UoJ2ZsaXAnLCdtYXRjaCcpOyBjLmNsYXNzTGlzdC5yZXBsYWNlKCdmbGlwJywnbWF0Y2gnKTsKICAgICAgZmlyc3QgPSBudWxsOyBtYXRjaGVkKys7CiAgICAgIGlmIChtYXRjaGVkID09PSBJQ09OUy5sZW5ndGgpIHdpbigpOwogICAgfSBlbHNlIHsKICAgICAgbG9jayA9IHRydWU7CiAgICAgIHNldFRpbWVvdXQoKCkgPT4geyBmaXJzdC5jbGFzc0xpc3QucmVtb3ZlKCdmbGlwJyk7IGMuY2xhc3NMaXN0LnJlbW92ZSgnZmxpcCcpOyBmaXJzdCA9IG51bGw7IGxvY2sgPSBmYWxzZTsgfSwgODAwKTsKICAgIH0KICB9CiAgZnVuY3Rpb24gd2luKCl7CiAgICBjbGVhckludGVydmFsKHRpbWVyKTsKICAgIGxldCBtc2cgPSBg8J+OiSBZb3Ugd29uIGluICR7bW92ZXN9IG1vdmVzIGFuZCAke3NlY31zIWA7CiAgICBpZiAoIWJlc3QgfHwgbW92ZXMgPCBiZXN0KXsKICAgICAgYmVzdCA9IG1vdmVzOyBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnYmVzdCcpLnRleHRDb250ZW50ID0gYmVzdDsKICAgICAgdHJ5eyBsb2NhbFN0b3JhZ2Uuc2V0SXRlbSgnbWVtb3J5QmVzdCcsIGJlc3QpOyB9Y2F0Y2goZSl7fQogICAgICBtc2cgKz0gJyBOZXcgYmVzdCEnOwogICAgfQogICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3dpbicpLnRleHRDb250ZW50ID0gbXNnOwogIH0KICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncmVzdGFydCcpLm9uY2xpY2sgPSBuZXdHYW1lOwogIG5ld0dhbWUoKTsKPC9zY3JpcHQ+CjwvYm9keT4KPC9odG1sPgo="
+    };
+    const modal = document.getElementById('projModal');
+    const frame = document.getElementById('projFrame');
+    function decode(s){ return new TextDecoder().decode(Uint8Array.from(atob(s), c => c.charCodeAt(0))); }
+    function closeProject(){ modal.classList.remove('open'); frame.srcdoc = ''; document.body.style.overflow = ''; }
+    document.querySelectorAll('.project-link[data-project]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        frame.srcdoc = decode(PROJECTS[link.dataset.project]);
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    document.getElementById('projClose').addEventListener('click', closeProject);
+    modal.addEventListener('click', e => { if (e.target === modal) closeProject(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProject(); });
+  </script>
+
+</body>
+</html>
